@@ -1,7 +1,7 @@
 import sys
 
-
-i=0
+# args = len(sys.argv);
+i = 0
 while i < len(sys.argv):
     if sys.argv[i][0] == '-':
         print(sys.argv[i])
