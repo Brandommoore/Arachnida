@@ -1,8 +1,10 @@
 import sys
+from soup import *
 
 #[reverse, level, path]
-datos = [False, 5, ' ', ' ']
+datos = [False, 5, './data/', ' ']
 args = sys.argv
+
 def travel_arguments(datos, args):
     i = 0
     while i < len(sys.argv):
@@ -20,4 +22,5 @@ def travel_arguments(datos, args):
 
 if __name__ == "__main__":
     travel_arguments(datos, args)
+    print(checkImages(imgRoutes(datos[3])))
     print(datos)

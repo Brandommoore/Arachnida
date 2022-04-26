@@ -28,12 +28,12 @@ def checkImages(img_url):
 			myImgs.append(elem)
 	return(myImgs)
 
-
-url = sys.argv[1]
+# def findUrl()
+#url = sys.argv[1]
 # img_routes(url)
 
-imgChecked=checkImages(imgRoutes(url))
-print(imgChecked)
+# imgChecked=checkImages(imgRoutes(url))
+#print(imgChecked)
 
 # imgsRout=img_routes(url)
 # imgsRout.append("patata/roja.svg")
