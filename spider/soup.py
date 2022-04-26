@@ -1,5 +1,6 @@
 from operator import truediv
 import sys
+import time
 import urllib.request
 from cgitb import html
 from bs4 import BeautifulSoup
@@ -37,11 +38,24 @@ def findUrls(url):
 		myUrls.append(tag.get('href'))
 	return(myUrls)
 
+def recUrls(myUrls):
+	allUrls=[]
+	for url in myUrls:
+		#print(url + "\n")
+		#print("  -- ")
+		#print(findUrls(url))
+		allUrls.append(findUrls(url))
+		time.sleep(0.1)
+	return(allUrls)
 
 url = sys.argv[1]
 # img_routes(url)
 
-print(findUrls(url))
+# print(findUrls(url))
+# print("\n")
+recUrls(findUrls(url))
+
+#print(checkImages(imgRoutes(url)))
 
 # imgChecked=checkImages(imgRoutes(url))
 #print(imgChecked)
