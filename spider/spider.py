@@ -1,7 +1,9 @@
 import sys
 from soup import *
+from download import *
+import requests
 
-#[reverse, level, path]
+#[reverse, level, path, url]
 datos = [False, 5, './data/', ' ']
 args = sys.argv
 
@@ -22,5 +24,7 @@ def travel_arguments(datos, args):
 
 if __name__ == "__main__":
     travel_arguments(datos, args)
-    print(checkImages(imgRoutes(datos[3])))
-    print(datos)
+    path = datos[2]
+    urls = checkImages(imgRoutes(datos[3]))
+    for url in urls:
+        download(url, path)
