@@ -1,44 +1,23 @@
 import sys
 
-i = 0
-r = False
-l = False
-p = False
-
-def active_flags(digit):
-    print(digit)
-    global l
-    global r
-    if digit == "r":
-        print("hola")
-        r = True
-    if digit == 'l':
-        print("adios")
-        l = True
-    if digit == 'p':
-        p = True
-
-def travel_string():
-    j = 1;
-    while j < len(sys.argv[i]):
-        active_flags(sys.argv[i][j])
-        j+=1
-
-def is_it_flag():
-    if sys.argv[i][0] == '-':
-        return True
-    else:
-        return False
-
-def travel_arguments():
-    global i
+#[reverse, level, path]
+datos = [False, 5, ' ', ' ']
+args = sys.argv
+def travel_arguments(datos, args):
+    i = 0
     while i < len(sys.argv):
-        if is_it_flag() == True:
-            travel_string()
+        if args[i] == '-r':
+            datos[0] = True
+        elif args[i] == '-l':
+            datos[1] = args[i+1]
+            i+=1
+        elif args[i] == '-p':
+            datos[2] = args[i+1]
+            i+=1
         i+=1
+    print(args[i-1])
+    datos[3] = sys.argv[i-1]
 
 if __name__ == "__main__":
-    travel_arguments()
-    print(r)
-    print(l)
-    print(p)
+    travel_arguments(datos, args)
+    print(datos)
