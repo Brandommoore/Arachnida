@@ -28,9 +28,20 @@ def checkImages(img_url):
 			myImgs.append(elem)
 	return(myImgs)
 
-# def findUrl()
-#url = sys.argv[1]
+def findUrls(url):
+	myUrls=[]
+	data=urllib.request.urlopen(url).read().decode()
+	soup=BeautifulSoup(data, "html.parser")
+	tags=soup('a')
+	for tag in tags:
+		myUrls.append(tag.get('href'))
+	return(myUrls)
+
+
+url = sys.argv[1]
 # img_routes(url)
+
+print(findUrls(url))
 
 # imgChecked=checkImages(imgRoutes(url))
 #print(imgChecked)
