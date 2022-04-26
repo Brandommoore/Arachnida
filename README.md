@@ -1,2 +1,2 @@
-# arachnida
-Arachnida 42 cybersec bootcamp project
+# Arachnida
+Arachnida 42 cybersec bootcamp project.
