@@ -48,6 +48,15 @@ def recUrls(myUrls):
 		time.sleep(0.1)
 	return(allUrls)
 
+# cleanUrlList - return: list without duplicates
+# chech if url in cleanList already exist
+def cleanUrlList(urlList):
+	cleanList=[]
+	for url in urlList:
+		cleanList.append(url)
+		 #if cleanList in
+	return(cleanList)
+
 url = sys.argv[1]
 # img_routes(url)
 
