@@ -12,7 +12,10 @@ from bs4 import BeautifulSoup
 def imgRoutes(url):
 	img_url=[]
 	# url request
-	datos = urllib.request.urlopen(url).read().decode()
+	try:
+		datos = urllib.request.urlopen(url)
+	except Exception as e:
+		pass
 	# soup
 	soup = BeautifulSoup(datos, "html.parser")
 	# creating a tag
@@ -31,59 +34,76 @@ def checkImages(img_url):
 
 def findUrls(url):
 	myUrls=[]
-	data=urllib.request.urlopen(url).read().decode()
-	soup=BeautifulSoup(data, "html.parser")
-	tags=soup('a')
-	for tag in tags:
-		myUrls.append(tag.get('href'))
-	return(myUrls)
+	try:
+		data=urllib.request.urlopen(url)
+		soup=BeautifulSoup(data, "html.parser")
+		tags=soup('a')
+		for tag in tags:
+			myUrls.append(tag.get('href'))
+		# print(myUrls)
+		return(myUrls)
+	except Exception as e:
+		return([])
+		pass
 
 def recUrls(myUrls):
+	# print(myUrls)
 	allUrls=[]
 	for url in myUrls:
 		#print(url + "\n")
 		#print("  -- ")
 		#print(findUrls(url))
-		allUrls.append(findUrls(url))
+		currentUrls=findUrls(url)
+		allUrls.extend(currentUrls)
 		time.sleep(0.1)
+	print(allUrls)
 	return(allUrls)
 
-# cleanUrlList - return: list without duplicates
-# chech if url in cleanList already exist
-def cleanUrlList(urlList):
-	cleanList=[]
-	for url in urlList:
-		cleanList.append(url)
-		 #if cleanList in
-	return(cleanList)
+	# cleanUrlList - return: list without duplicates
+	# chech if url in cleanList already exist
+	# def cleanUrlList(urlList):
+	# 	cleanList=[]
+	# 	for url in urlList:
+	# 		cleanList.append(url)
 
-url = sys.argv[1]
-# img_routes(url)
+	# 	return(cleanList)
 
-# print(findUrls(url))
-# print("\n")
-recUrls(findUrls(url))
+if __name__ == "__main__":
 
-#print(checkImages(imgRoutes(url)))
+	url = sys.argv[1]
+	# img_routes(url)
+	allUrls=findUrls(url)
+	recUrls(allUrls)
 
-# imgChecked=checkImages(imgRoutes(url))
-#print(imgChecked)
+	# findUrls(url)
 
-# imgsRout=img_routes(url)
-# imgsRout.append("patata/roja.svg")
-# print(imgsRout[:])
-# print(checkImages(imgsRout))
+	# print(findUrls(url))
+	# print("\n")
+	# urls = recUrls(findUrls(url))
+	# urls=findUrls(url)
+	# finalUrls=recUrls(urls)
+	# print(finalUrls)
 
-# elem="siper/siiip/img.png"
-# suffix=((".jpg", ".jpeg", ".png", ".gif", ".bmp"))
-# print(elem.endswith(suffix))
+	#print(checkImages(imgRoutes(url)))
 
-#img_routes(url)
+	# imgChecked=checkImages(imgRoutes(url))
+	#print(imgChecked)
 
-# find img with find
-#print(soup.find_all("a", limit=1))
-#print("\n")
+	# imgsRout=img_routes(url)
+	# imgsRout.append("patata/roja.svg")
+	# print(imgsRout[:])
+	# print(checkImages(imgsRout))
 
-# tit = soup.title
-#print(soup.title)
-# print(soup.prettify())
+	# elem="siper/siiip/img.png"
+	# suffix=((".jpg", ".jpeg", ".png", ".gif", ".bmp"))
+	# print(elem.endswith(suffix))
+
+	#img_routes(url)
+
+	# find img with find
+	#print(soup.find_all("a", limit=1))
+	#print("\n")
+
+	# tit = soup.title
+	#print(soup.title)
+	# print(soup.prettify())
