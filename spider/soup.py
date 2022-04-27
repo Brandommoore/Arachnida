@@ -9,20 +9,38 @@ from bs4 import BeautifulSoup
 # - check_images -- returm: correct url list images
 #
 
+# cleanUrlList - return: list without duplicates
+# chech if url in cleanList already exist
+def cleanDupList(urlList):
+	cleanList=[]
+	for url in urlList:
+		if url not in cleanList:
+			cleanList.append(url)
+	return(cleanList)
+
+def checkUrls(urlList):
+	avoid=((None, 'None', '#', '/', '', ' '))
+	for url in urlList:
+		if url in avoid:
+			urlList.remove(url)
+	return(urlList)
+
 def imgRoutes(url):
 	img_url=[]
 	# url request
 	try:
 		datos = urllib.request.urlopen(url)
+		# soup
+		soup = BeautifulSoup(datos, "html.parser")
+		# creating a tag
+		tags = soup('img')
+		for tag in tags:
+			img_url.append(tag.get('src'))
+		img_url=cleanDupList(img_url)
+		return(img_url)
 	except Exception as e:
+		return([])
 		pass
-	# soup
-	soup = BeautifulSoup(datos, "html.parser")
-	# creating a tag
-	tags = soup('img')
-	for tag in tags:
-		img_url.append(tag.get('src'))
-	return(img_url)
 
 def checkImages(img_url):
 	myImgs=[]
@@ -40,7 +58,8 @@ def findUrls(url):
 		tags=soup('a')
 		for tag in tags:
 			myUrls.append(tag.get('href'))
-		# print(myUrls)
+		myUrls=cleanDupList(myUrls)
+		myUrls=checkUrls(myUrls)
 		return(myUrls)
 	except Exception as e:
 		return([])
@@ -56,26 +75,18 @@ def recUrls(myUrls):
 		currentUrls=findUrls(url)
 		allUrls.extend(currentUrls)
 		time.sleep(0.1)
-	print(allUrls)
+	# print(allUrls)
 	return(allUrls)
-
-	# cleanUrlList - return: list without duplicates
-	# chech if url in cleanList already exist
-	# def cleanUrlList(urlList):
-	# 	cleanList=[]
-	# 	for url in urlList:
-	# 		cleanList.append(url)
-
-	# 	return(cleanList)
 
 if __name__ == "__main__":
 
 	url = sys.argv[1]
 	# img_routes(url)
-	allUrls=findUrls(url)
-	recUrls(allUrls)
+	# allUrls=findUrls(url)
+	# allUrls=recUrls(allUrls)
+	# print(allUrls)
 
-	# findUrls(url)
+	print(findUrls(url))
 
 	# print(findUrls(url))
 	# print("\n")
