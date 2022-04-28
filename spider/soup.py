@@ -27,12 +27,9 @@ def checkUrls(urlList):
 
 def imgRoutes(url):
 	img_url=[]
-	# url request
 	try:
 		datos = urllib.request.urlopen(url)
-		# soup
 		soup = BeautifulSoup(datos, "html.parser")
-		# creating a tag
 		tags = soup('img')
 		for tag in tags:
 			img_url.append(tag.get('src'))
@@ -65,28 +62,62 @@ def findUrls(url):
 		return([])
 		pass
 
-def recUrls(myUrls):
-	# print(myUrls)
+def urlLooper(listUrls):
 	allUrls=[]
-	for url in myUrls:
-		#print(url + "\n")
-		#print("  -- ")
-		#print(findUrls(url))
+
+	for url in listUrls:
 		currentUrls=findUrls(url)
 		allUrls.extend(currentUrls)
 		time.sleep(0.1)
-	# print(allUrls)
 	return(allUrls)
+
+# def recursiveFindUrls(listUrls, depth, current_depth):
+# 	allUrls=[]
+# 	#listUrls=url
+# 	current_depth+=1
+# 	if depth == 0:
+# 		return([])
+# 	elif depth == 1:
+# 		allUrls=findUrls(listUrls)
+# 		return(allUrls, depth, current_depth)
+# 	elif current_depth <= depth and current_depth>1:
+# 		allUrls=urlLooper(listUrls)
+# 		return(allUrls, depth, current_depth)
+# 	allUrls=recursiveFindUrls(allUrls, depth, current_depth)
+
+# def recursiveFindUrls(listUrls, depth, current_depth):
+# 	allUrls=[]
+# 	#listUrls=url
+# 	current_depth+=1
+# 	if current_depth <= depth:
+# 		allUrls=recursiveFindUrls(listUrls, depth, current_depth)
+# 	return(allUrls)
+
+def recursiveFindUrls(url, depth, current_depth):
+	listUrls=[]
+	#listUrls=url
+	listUrls.append(url)
+	# print(len(listUrls[:]))
+	# print(listUrls)
+	if len(listUrls[:]) == 1:
+		print(listUrls)
+		listUrls=findUrls(listUrls)
+	while current_depth <= depth:
+		listUrls=urlLooper(listUrls)
+		current_depth+=1
+	return(listUrls)
 
 if __name__ == "__main__":
 
 	url = sys.argv[1]
+	depth = int(sys.argv[2])
 	# img_routes(url)
 	# allUrls=findUrls(url)
 	# allUrls=recUrls(allUrls)
 	# print(allUrls)
 
-	print(findUrls(url))
+	#print(findUrls(url))
+	print(recursiveFindUrls(url, depth, 0))
 
 	# print(findUrls(url))
 	# print("\n")
