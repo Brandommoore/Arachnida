@@ -25,6 +25,9 @@ def travel_arguments(datos, args):
 if __name__ == "__main__":
     travel_arguments(datos, args)
     path = datos[2]
-    urls = checkImages(imgRoutes(datos[3]))
+    # I changed the fuction by a newer fuction who return all urls
+    #print(datos[3])
+    #print(datos[1])
+    urls = startHunting(datos[3], int(datos[1]))
     for url in urls:
         download(url, path)

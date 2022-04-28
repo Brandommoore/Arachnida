@@ -118,6 +118,13 @@ def recursiveFindUrls(url, depth, current_depth):
 		current_depth+=1
 	return(listUrls)
 
+def startHunting(url, depth):
+	print("Spider is hunting urls...")
+	allUrls=recursiveFindUrls(url, depth, 0)
+	print("Spider is hunting images...")
+	allImgs=findImages(allUrls)
+	return(allImgs)
+
 if __name__ == "__main__":
 
 	url = sys.argv[1]
