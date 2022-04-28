@@ -80,7 +80,7 @@ def urlLooper(listUrls):
 	for url in listUrls:
 		currentUrls=findUrls(url)
 		allUrls.extend(currentUrls)
-		time.sleep(0.1)
+		time.sleep(0.01)
 	return(allUrls)
 
 # def recursiveFindUrls(listUrls, depth, current_depth):
