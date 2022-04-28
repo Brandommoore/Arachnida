@@ -25,6 +25,11 @@ def checkUrls(urlList):
 			urlList.remove(url)
 	return(urlList)
 
+def sanitizeUrls(urlList):
+	urlList=cleanDupList(urlList)
+	urlList=checkUrls(urlList)
+	return(urlList)
+
 def imgRoutes(url):
 	img_url=[]
 	try:
@@ -55,8 +60,7 @@ def findUrls(url):
 		tags=soup('a')
 		for tag in tags:
 			myUrls.append(tag.get('href'))
-		myUrls=cleanDupList(myUrls)
-		myUrls=checkUrls(myUrls)
+		myUrls=sanitizeUrls(myUrls)
 		return(myUrls)
 	except Exception as e:
 		return([])
@@ -75,15 +79,11 @@ def urlLooper(listUrls):
 # 	allUrls=[]
 # 	#listUrls=url
 # 	current_depth+=1
-# 	if depth == 0:
-# 		return([])
-# 	elif depth == 1:
-# 		allUrls=findUrls(listUrls)
-# 		return(allUrls, depth, current_depth)
-# 	elif current_depth <= depth and current_depth>1:
+# 	if current_depth <= depth:
 # 		allUrls=urlLooper(listUrls)
 # 		return(allUrls, depth, current_depth)
 # 	allUrls=recursiveFindUrls(allUrls, depth, current_depth)
+# 	return(allUrls)
 
 # def recursiveFindUrls(listUrls, depth, current_depth):
 # 	allUrls=[]
@@ -99,11 +99,14 @@ def recursiveFindUrls(url, depth, current_depth):
 	listUrls.append(url)
 	# print(len(listUrls[:]))
 	# print(listUrls)
+	# if depth==0:
+	# 	return([])
 	if len(listUrls[:]) == 1:
-		print(listUrls)
-		listUrls=findUrls(listUrls)
+		#print(listUrls)
+		listUrls.extend(findUrls(listUrls))
 	while current_depth <= depth:
-		listUrls=urlLooper(listUrls)
+		listUrls.extend(urlLooper(listUrls))
+		listUrls=sanitizeUrls(listUrls)
 		current_depth+=1
 	return(listUrls)
 
@@ -111,6 +114,8 @@ if __name__ == "__main__":
 
 	url = sys.argv[1]
 	depth = int(sys.argv[2])
+	#urls=[]
+	#urls.append(url)
 	# img_routes(url)
 	# allUrls=findUrls(url)
 	# allUrls=recUrls(allUrls)
@@ -118,6 +123,8 @@ if __name__ == "__main__":
 
 	#print(findUrls(url))
 	print(recursiveFindUrls(url, depth, 0))
+
+	#print(urlLooper(findUrls(url)))
 
 	# print(findUrls(url))
 	# print("\n")
