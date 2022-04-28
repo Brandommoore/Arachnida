@@ -52,6 +52,14 @@ def checkImages(img_url):
 			myImgs.append(elem)
 	return(myImgs)
 
+def findImages(listUrls):
+	images=[]
+	for url in listUrls:
+		images.extend(imgRoutes(url))
+	images=sanitizeUrls(images)
+	images=checkImages(images)
+	return(images)
+
 def findUrls(url):
 	myUrls=[]
 	try:
@@ -122,7 +130,13 @@ if __name__ == "__main__":
 	# print(allUrls)
 
 	#print(findUrls(url))
-	print(recursiveFindUrls(url, depth, 0))
+	print("Spider is hunting urls...")
+	allUrls=recursiveFindUrls(url, depth, 0)
+	#print(allUrls)
+	print("Spider is hunting images...")
+	allImgs=findImages(allUrls)
+	print(allImgs)
+
 
 	#print(urlLooper(findUrls(url)))
 
