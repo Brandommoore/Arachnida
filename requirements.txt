@@ -4,4 +4,6 @@ lxml
 html5lib
 requests
 download
+exifread
+Pillow
 beautifulsoup4
