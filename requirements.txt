@@ -5,5 +5,9 @@ html5lib
 requests
 download
 exifread
-Pillow
+pypdf2
+python-docx
+pillow
+python-xmp-toolkit
+xmp-tool
 beautifulsoup4
