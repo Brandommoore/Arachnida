@@ -30,4 +30,7 @@ if __name__ == "__main__":
     #print(datos[1])
     urls = startHunting(datos[3], int(datos[1]))
     for url in urls:
-        download(url, path)
+        try:
+            download(url, path)
+        except Exception as e:
+            pass
