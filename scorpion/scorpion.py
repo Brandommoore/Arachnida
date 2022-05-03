@@ -3,7 +3,7 @@ import os
 import exifread
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
-from libxmp.utils import file_to_dict # Module for XMP metadata manipulation
+from libxmp.utils import file_to_dict
 from libxmp import consts
 
 class bcolors:
@@ -16,7 +16,6 @@ class bcolors:
 	TURQUOISE='\033[0;36m'
 	GRAY='\033[0;37m'
 
-# args = len(sys.argv);
 i = 0
 while i < len(sys.argv):
 	if sys.argv[i][0] == '-':
@@ -41,7 +40,6 @@ def extractEXIF(img):
 			print("\n")
 			img.close()
 	except Exception as e:
-		#print(bcolors.RED + "Error\n" + bcolors.RESET)
 		pass
 
 def extractEXIF_png_gif(img_name):
@@ -65,10 +63,8 @@ def extractEXIF_png_gif(img_name):
 
 def scorpionEXTRACTER(img_name):
 	if img_name.endswith((".jpg", ".jpeg")):
-		#print("IS JPG")
 		extractEXIF(img_name)
 	elif img_name.endswith((".png", ".gif", ".bpm")):
-		#print("NO JPG")
 		extractEXIF_png_gif(img_name)
 	else:
 		print(bcolors.RED + "File extension not supported\n" + bcolors.RESET)
@@ -79,7 +75,6 @@ def cleanProgName(arguments):
 		if arg is progName:
 			arguments.remove(arg)
 	return(arguments)
-
 
 if __name__ == "__main__":
 	arguments=[]

@@ -5,12 +5,6 @@ import urllib.request
 from cgitb import html
 from bs4 import BeautifulSoup
 
-# - img_routes -- return: whole list of images
-# - check_images -- returm: correct url list images
-#
-
-# cleanUrlList - return: list without duplicates
-# chech if url in cleanList already exist
 def cleanDupList(urlList):
 	cleanList=[]
 	for url in urlList:
@@ -83,32 +77,9 @@ def urlLooper(listUrls):
 		time.sleep(0.01)
 	return(allUrls)
 
-# def recursiveFindUrls(listUrls, depth, current_depth):
-# 	allUrls=[]
-# 	#listUrls=url
-# 	current_depth+=1
-# 	if current_depth <= depth:
-# 		allUrls=urlLooper(listUrls)
-# 		return(allUrls, depth, current_depth)
-# 	allUrls=recursiveFindUrls(allUrls, depth, current_depth)
-# 	return(allUrls)
-
-# def recursiveFindUrls(listUrls, depth, current_depth):
-# 	allUrls=[]
-# 	#listUrls=url
-# 	current_depth+=1
-# 	if current_depth <= depth:
-# 		allUrls=recursiveFindUrls(listUrls, depth, current_depth)
-# 	return(allUrls)
-
 def recursiveFindUrls(url, depth, current_depth):
 	listUrls=[]
-	#listUrls=url
 	listUrls.append(url)
-	# print(len(listUrls[:]))
-	# print(listUrls)
-	# if depth==0:
-	# 	return([])
 	if len(listUrls[:]) == 1:
 		#print(listUrls)
 		listUrls.extend(findUrls(listUrls))
@@ -125,55 +96,13 @@ def startHunting(url, depth):
 	allImgs=findImages(allUrls)
 	return(allImgs)
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-	url = sys.argv[1]
-	depth = int(sys.argv[2])
-	#urls=[]
-	#urls.append(url)
-	# img_routes(url)
-	# allUrls=findUrls(url)
-	# allUrls=recUrls(allUrls)
-	# print(allUrls)
+# 	url = sys.argv[1]
+# 	depth = int(sys.argv[2])
 
-	#print(findUrls(url))
-	print("Spider is hunting urls...")
-	allUrls=recursiveFindUrls(url, depth, 0)
-	#print(allUrls)
-	print("Spider is hunting images...")
-	allImgs=findImages(allUrls)
-	print(allImgs)
-
-
-	#print(urlLooper(findUrls(url)))
-
-	# print(findUrls(url))
-	# print("\n")
-	# urls = recUrls(findUrls(url))
-	# urls=findUrls(url)
-	# finalUrls=recUrls(urls)
-	# print(finalUrls)
-
-	#print(checkImages(imgRoutes(url)))
-
-	# imgChecked=checkImages(imgRoutes(url))
-	#print(imgChecked)
-
-	# imgsRout=img_routes(url)
-	# imgsRout.append("patata/roja.svg")
-	# print(imgsRout[:])
-	# print(checkImages(imgsRout))
-
-	# elem="siper/siiip/img.png"
-	# suffix=((".jpg", ".jpeg", ".png", ".gif", ".bmp"))
-	# print(elem.endswith(suffix))
-
-	#img_routes(url)
-
-	# find img with find
-	#print(soup.find_all("a", limit=1))
-	#print("\n")
-
-	# tit = soup.title
-	#print(soup.title)
-	# print(soup.prettify())
+# 	print("Spider is hunting urls...")
+# 	allUrls=recursiveFindUrls(url, depth, 0)
+# 	print("Spider is hunting images...")
+# 	allImgs=findImages(allUrls)
+# 	print(allImgs)
